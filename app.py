@@ -1,39 +1,77 @@
 import streamlit as st
 import random
 
-st.set_page_config(page_title="Music Mood", page_icon="🎵")
+st.set_page_config(page_title="PsyMusic — подбор по настроению", page_icon="🧠")
 
-st.title("🎵 Музыка под настроение")
-st.write("Школьный проект: выберите настроение ниже.")
+# Оформление
+st.title("🧠 PsyMusic: Психология и Звук")
+st.markdown("""
+    *Исследовательский проект ученицы 10 класса.*  
+    Алгоритм подбирает музыку на основе психоэмоционального состояния пользователя.
+""")
 
+# Расширенная база данных
 music_db = {
-    "Энергичное 🔥": [
-        {"title": "Imagine Dragons - Believer", "url": "https://youtube.com"},
-        {"title": "The Weeknd - Blinding Lights", "url": "https://youtube.com"}
+    "Радость и драйв 🥳": [
+        {"title": "Pharrell Williams - Happy", "url": "https://youtube.com"},
+        {"title": "Bruno Mars - Uptown Funk", "url": "https://youtube.com"},
+        {"title": "Earth, Wind & Fire - September", "url": "https://youtube.com"}
     ],
-    "Спокойное ☕": [
-        {"title": "Lofi Girl - Chill Beats", "url": "https://youtube.com"},
-        {"title": "Øneheart - snowfall", "url": "https://youtube.com"}
+    "Грусть и меланхолия 🌧️": [
+        {"title": "Billie Eilish - when the party's over", "url": "https://youtube.com"},
+        {"title": "Adele - Someone Like You", "url": "https://youtube.com"},
+        {"title": "Radiohead - No Surprises", "url": "https://youtube.com"}
     ],
-    "Грустное ☁️": [
-        {"title": "Joji - Glimpse of Us", "url": "https://youtube.com"},
-        {"title": "Tom Odell - Another Love", "url": "https://youtube.com"}
+    "Стресс и тревога (релакс) 🌿": [
+        {"title": "Weightless - Marconi Union (Самый расслабляющий трек)", "url": "https://youtube.com"},
+        {"title": "Debussy - Clair de Lune", "url": "https://youtube.com"},
+        {"title": "Ambient Nature Sounds", "url": "https://youtube.com"}
+    ],
+    "Гнев и агрессия (выплеск) 🔥": [
+        {"title": "Linkin Park - In The End", "url": "https://youtube.com"},
+        {"title": "System Of A Down - Toxicity", "url": "https://youtube.com"},
+        {"title": "Bring Me The Horizon - Can You Feel My Heart", "url": "https://youtube.com"}
+    ],
+    "Концентрация и учеба 📖": [
+        {"title": "Lofi Hip Hop Radio", "url": "https://youtube.com"},
+        {"title": "Interstellar Soundtrack - Hans Zimmer", "url": "https://youtube.com"},
+        {"title": "Deep Focus for Homework", "url": "https://youtube.com"}
+    ],
+    "Апатия и нехватка сил 🔋": [
+        {"title": "The Weeknd - Blinding Lights", "url": "https://youtube.com"},
+        {"title": "Imagine Dragons - Thunder", "url": "https://youtube.com"},
+        {"title": "Survivor - Eye of the Tiger", "url": "https://youtube.com"}
+    ],
+    "Романтическое настроение ❤️": [
+        {"title": "Ed Sheeran - Perfect", "url": "https://youtube.com"},
+        {"title": "Lana Del Rey - Video Games", "url": "https://youtube.com"},
+        {"title": "John Legend - All of Me", "url": "https://youtube.com"}
+    ],
+    "Ощущение одиночества 🌌": [
+        {"title": "Øneheart - snowfall", "url": "https://youtube.com"},
+        {"title": "M83 - Wait", "url": "https://youtube.com"},
+        {"title": "Vance Joy - Riptide", "url": "https://youtube.com"}
     ]
 }
 
-selected_mood = st.selectbox("Как вы себя чувствуете?", list(music_db.keys()))
+# Выбор настроения
+st.subheader("Что вы чувствуете в данный момент?")
+selected_mood = st.selectbox("", list(music_db.keys()))
 
-if st.button("ПОДОБРАТЬ"):
+if st.button("АНАЛИЗИРОВАТЬ И ПОДОБРАТЬ"):
     song = random.choice(music_db[selected_mood])
     
-    st.success(f"Рекомендую: {song['title']}")
+    st.markdown("---")
+    st.success(f"Для вашего состояния лучше всего подойдет: **{song['title']}**")
     
-    # Используем стандартный плеер Streamlit (он самый стабильный)
-    st.video(song['url']) 
+    # Плеер
+    st.video(song['url'])
+    
+    # Психологическая справка
+    st.info("💡 **Почему это работает?** Ритм и тональность выбранной композиции помогают мозгу либо стабилизировать состояние (при стрессе), либо прожить эмоцию (при грусти), что ведет к психологической разрядке.")
     
     st.balloons()
 
-st.info("Если видео не отображается, убедитесь, что у вас стабильный интернет.")
-# Футер для проекта
 st.markdown("---")
-st.caption("Школьный индивидуальный проект 10 класс | 2026 год")
+st.caption("Проект выполнен для практической части Итогового Индивидуального Проекта (ИИП).")
+st.info("Если видео не отображается, убедитесь, что у вас стабильный интернет.")
